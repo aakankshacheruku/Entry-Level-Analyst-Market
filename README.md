@@ -50,10 +50,3 @@ job-market-navigator/
   requirements.txt
   Makefile
 ```
-
----
-
-### Intellectual honesty
-- Use **hires per opening** and **quits** to avoid overinterpreting openings alone.
-- Clearly label revisions and limitations on the dashboard.
-- If you add postings later, label them **recruiting intent** (not vacancies).
