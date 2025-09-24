@@ -1,52 +1,107 @@
-# Job Market Navigator (Tableau-first)
+# Job Market Navigator
 
-A portfolio-ready project that measures labor-market conditions with a focus on **recent grads** and turns them into a **Tableau Public** dashboard.
+This project explores U.S. labor market conditions, with a focus on recent graduates navigating today’s job market. I built Python ETL scripts to pull and clean JOLTS and CPS data from the Bureau of Labor Statistics, then designed Tableau dashboards to visualize key indicators like openings, hires, unemployment, and conversion efficiency.
 
-## V1 deliverables
-1. **Thermometer (Macro)** — Openings, Hires/Openings, Quits, Unemployment, LFPR (2015–present)  
-2. **Early-Career Lens** — Unemployment for 20–24 and 25–34 vs Overall  
-3. **Data Notes** — Seasonality, revisions, definitions, caveats
+---
 
-> v2 ideas: Remote/RTO overlays (SWAA), AI exposure explorer (SOC bins).
+## Dashboards (Tableau Public)
 
-## Stack
-- **Prep:** Python + DuckDB (optional) → CSVs in `data_mart/`  
-- **Viz:** Tableau Public (connect to the CSVs)  
-- **Code style:** small, auditable scripts → reproducible marts
+- **Thermometer** — Macro view of labor market tightness and conversion  
+  (Job Openings, Hires per Opening, Quits Rate, Unemployment Rate, LFPR)
 
-## Quickstart
-```bash
-# create and activate a virtual env (example using uv)
-uv venv && source .venv/bin/activate
-uv pip install -r requirements.txt
+- **Early-Career Lens** — Unemployment trends for ages 20–24 and 25–34 compared to the overall workforce
 
-# run ETL to produce clean CSVs
-python src/etl/jolts.py
-python src/etl/cps_published.py
+*(links coming soon as dashboards are published)*
 
-# (optional) build the mart with DuckDB (requires duckdb installed)
-duckdb :memory: -c ".read src/sql/schema.sql" -c "COPY mart_macro TO 'data_mart/mart_macro.csv' (HEADER, DELIMITER ',');"
-```
+---
 
-## Tableau
-- Connect **`data_mart/mart_macro.csv`** (or directly `data_clean/*.csv` for v1).  
-- Build two dashboards: **Thermometer** and **Early-Career Lens**.  
-- Publish to Tableau Public and link back here.
+## Data Pipeline
 
-## Caveats
-- Public published CPS series are used (seasonally adjusted). Interpret **2015–present** trends with **revision cautions**.  
-- Descriptive analysis only; no causal claims.
+- **ETL scripts (`/src/etl`)**: Python code that pulls JOLTS and CPS series from the BLS API and saves them as clean CSVs (`/data_clean/`).  
+- **DuckDB schema (`/src/sql`)**: Builds a consolidated mart (`/data_mart/mart_macro.csv`) with derived KPIs such as Hires per Opening and rolling volatility.  
+- **Outputs**: These CSVs feed directly into Tableau dashboards.
 
-## Repo layout
-```
-job-market-navigator/
-  data_raw/ data_clean/ data_mart/
-  src/
-    etl/               # Python scripts (BLS pulls -> clean CSVs)
-    sql/               # DuckDB schema & marts
-  notebooks/           # optional EDA
-  tableau/             # workbook exports
-  README.md
-  requirements.txt
-  Makefile
-```
+---
+
+## Repo Highlights
+
+- `/src/etl` → Python ETL for JOLTS and CPS data  
+- `/src/sql` → DuckDB schema & KPI definitions  
+- `/data_clean`, `/data_mart` → Clean and mart CSVs for Tableau  
+- `/docs` → Experiment logs and notes  
+- `/tableau` → Workbook exports
+
+---
+
+## Roadmap
+
+Planned improvements and extensions include:
+- Adding remote vs. return-to-office overlays
+- Exploring AI-exposure by SOC codes
+- Building state-level or regional breakdowns for youth unemployment
+- Automating monthly refreshes
+
+---
+
+## Notes
+
+- Data are from publicly available, seasonally adjusted BLS series.  
+- Revisions can affect the most recent months; interpretation should account for
+
+cat > README.md << 'EOF'
+# Job Market Navigator
+
+This project explores U.S. labor market conditions, with a focus on recent graduates navigating today’s job market. I built Python ETL scripts to pull and clean JOLTS and CPS data from the Bureau of Labor Statistics, then designed Tableau dashboards to visualize key indicators like openings, hires, unemployment, and conversion efficiency.
+
+---
+
+## Dashboards (Tableau Public)
+
+- **Thermometer** — Macro view of labor market tightness and conversion  
+  (Job Openings, Hires per Opening, Quits Rate, Unemployment Rate, LFPR)
+
+- **Early-Career Lens** — Unemployment trends for ages 20–24 and 25–34 compared to the overall workforce
+
+*(links coming soon as dashboards are published)*
+
+---
+
+## Data Pipeline
+
+- **ETL scripts (`/src/etl`)**: Python code that pulls JOLTS and CPS series from the BLS API and saves them as clean CSVs (`/data_clean/`).  
+- **DuckDB schema (`/src/sql`)**: Builds a consolidated mart (`/data_mart/mart_macro.csv`) with derived KPIs such as Hires per Opening and rolling volatility.  
+- **Outputs**: These CSVs feed directly into Tableau dashboards.
+
+---
+
+## Repo Highlights
+
+- `/src/etl` → Python ETL for JOLTS and CPS data  
+- `/src/sql` → DuckDB schema & KPI definitions  
+- `/data_clean`, `/data_mart` → Clean and mart CSVs for Tableau  
+- `/docs` → Experiment logs and notes  
+- `/tableau` → Workbook exports
+
+---
+
+## Roadmap
+
+Planned improvements and extensions include:
+- Adding remote vs. return-to-office overlays
+- Exploring AI-exposure by SOC codes
+- Building state-level or regional breakdowns for youth unemployment
+- Automating monthly refreshes
+
+---
+
+## Notes
+
+- Data are from publicly available, seasonally adjusted BLS series.  
+- Revisions can affect the most recent months; interpretation should account for
+
+git add README.md
+git rebase --continue
+
+cat > README.md << 'EOF'
+ls -1
+eof
