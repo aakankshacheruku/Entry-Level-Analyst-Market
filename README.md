@@ -2,7 +2,7 @@
 
 A portfolio-ready project that measures labor-market conditions with a focus on **recent grads** and turns them into a **Tableau Public** dashboard.
 
-## v1 deliverables
+## V1 deliverables
 1. **Thermometer (Macro)** — Openings, Hires/Openings, Quits, Unemployment, LFPR (2015–present)  
 2. **Early-Career Lens** — Unemployment for 20–24 and 25–34 vs Overall  
 3. **Data Notes** — Seasonality, revisions, definitions, caveats
