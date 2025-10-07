@@ -12,3 +12,6 @@ I'm rebuilding this project to understand how the entry-level data analyst job m
 
 ## Project Goal
 To provide an honest, data-backed picture of how opportunities for new analysts are shifting — by combining hiring data, labor statistics, and live job requirements into one transparent dataset and dashboard.
+
+## Data Ingestion (BLS JOLTS)
+I pull seasonally adjusted level series for Job Openings (JTSJOL) and Hires (JTSHIL) from the Bureau of Labor Statistics API. This file lands in `data_raw/` and powers Hires per Opening (HPO), 12-Month Rolling Average, and Year-over-Year (YoY) trends.
