@@ -1,0 +1,3 @@
+# Only try these on Python ≥3.10 (wheel-friendly). No-ops on 3.9 so installs don't fail.
+pyarrow==21.0.0; python_version >= "3.10"
+duckdb==1.1.2; python_version >= "3.10"
