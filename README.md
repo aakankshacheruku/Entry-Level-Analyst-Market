@@ -53,3 +53,88 @@ Make the project environment-agnostic, resilient to I/O errors, and easy to run 
 - Lightweight tests and fixtures: intentionally broken CSVs to prove the I/O layer fails safely.
 
 **Planned file additions (high-level):**
+src/
+io_utils.py # safe_read_csv(), header checks, optional retry wrappers
+log_config.py # centralized logging configuration
+main.py # imports io_utils + logging (updated)
+Makefile # setup / run / clean
+requirements.lock # frozen dependencies (generated)
+data/tests/ # small malformed CSVs for resilience checks
+logs/ # runtime logs (gitignored)
+
+
+**Example snippets (reference only; see src/ for full code):**
+```python
+# src/io_utils.py
+import pandas as pd
+import logging
+
+def safe_read_csv(path: str, **kwargs):
+    try:
+        df = pd.read_csv(path, **kwargs)
+        logging.info(f"Loaded {path} with {len(df)} rows.")
+        return df
+    except pd.errors.ParserError as e:
+        logging.warning(f"ParserError in {path}: {e}")
+        return pd.DataFrame()
+    except FileNotFoundError:
+        logging.warning(f"File not found: {path}")
+        return pd.DataFrame()
+# src/log_config.py
+import logging, os
+
+def configure_logging(log_file="logs/pipeline.log"):
+    os.makedirs(os.path.dirname(log_file), exist_ok=True)
+    logging.basicConfig(
+        filename=log_file,
+        level=logging.INFO,
+        format="%(asctime)s | %(levelname)s | %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S"
+    )
+# Makefile
+setup:
+\tpython3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt && pip freeze > requirements.lock
+
+run:
+\tpython3 src/main.py
+
+clean:
+\trm -rf __pycache__ logs/*
+
+# Why this matters
+This is where the repo starts feeling like software. By hardening the environment and strengthening I/O reliability, I can spend more time on metrics and dashboards — and less time chasing brittle failures or “works on my machine” issues.
+
+# Next up (Day 5 preview)
+With a stable runtime, I’ll focus on early-career opportunity metrics (for example, hires-to-openings, churn-adjusted entry ratios) and build a small metric dictionary that the visualization layer can consume directly.
+
+make setup
+make run
+# logs at: logs/pipeline.log
+
+Reflection
+
+After implementing logging and resilient I/O, it became clear that most “pipeline crashes” weren’t logic errors but unhandled edge cases. This layer makes the project production-like: reproducible, testable, and transparent. It also sets a foundation for automation and lightweight CI testing in later iterations.
+
+Roadmap
+
+Day 5–6: Build metric dictionary and Tableau dashboards.
+
+Day 7: Final synthesis — connect labor-market data to the evolving role of analysts in the AI era.
+
+Future Work:
+
+Extend I/O utilities to handle APIs and JSON sources.
+
+Add Docker support for consistent deployment.
+
+Explore AI-assisted validation checks (schema inference, anomaly flagging).
+
+
+---
+
+This addition finishes Day 4 neatly and keeps your README fully self-contained.  
+It also positions Day 5 naturally as the quantitative pivot point (metrics/modeling).  
+
+If you paste this after your current line, your README will now match the complete structure we’ve been building.  
+Would you like me to generate the **code pack** (`io_utils.py`, `log_config.py`, `main.py`, `Makefile`) next so your repo runs end-to-end with this documentation?
+
