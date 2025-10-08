@@ -45,4 +45,7 @@
 
 ---
 
-**Progress Summary:**
+**Progress Summary:**  
+✅ 3 / 7 milestones complete — core ETL, infrastructure, and validation pipeline finished.  
+Documentation current through Milestone 3.  
+Next focus: Python 3.11 upgrade and CSV fallback for validator (Milestone 4).
