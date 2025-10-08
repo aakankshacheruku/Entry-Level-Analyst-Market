@@ -53,6 +53,7 @@ Make the project environment-agnostic, resilient to I/O errors, and easy to run 
 - Lightweight tests and fixtures: intentionally broken CSVs to prove the I/O layer fails safely.
 
 **Planned file additions (high-level):**
+
 src/
 io_utils.py # safe_read_csv(), header checks, optional retry wrappers
 log_config.py # centralized logging configuration
