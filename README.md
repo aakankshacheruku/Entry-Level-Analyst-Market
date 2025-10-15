@@ -7,27 +7,11 @@ The project is structured as a 7-day iterative blueprint — each day tackles a 
 ---
 
 ## Why This Project Exists
-
-In 2025, the data world is changing faster than the job market can keep up. Entry-level roles that once served as training grounds for new analysts are being reshaped — not only by competition, but by AI automation and shifting expectations of what “analytical work” means.
-
-This project started as a way to measure that shift — combining public labor data (JOLTS + CPS) to ground the “no entry-level jobs” conversation in numbers. It’s also become a way to rethink what it means to enter the data profession at a time when AI tools can already write SQL, summarize dashboards, and automate reporting.
-
-I don’t see that as a threat. I see it as a redefinition of leverage.  
-AI doesn’t erase the analyst’s value — it amplifies judgment, storytelling, and problem framing. Analysts who thrive aren’t the ones who compete with AI for tasks; they’re the ones who use it to scale their own reasoning.
-
-### How entry-level analysts can benefit from AI
-- Offload repetitive tasks (parsing, quick EDA, boilerplate SQL) to focus on interpretation and decisions.  
-- Pair AI with data validation and skepticism — use it to propose ideas, then verify with sources and checks.  
-- Use AI to accelerate iteration cycles (hypotheses → prototypes → feedback) without skipping rigor.  
-- Lean into communication: clear narratives, decision memos, “so what?” — where human context wins.
-
-This project isn’t just tracking labor trends; it’s exploring the skills, habits, and mindsets that make early-career analysts resilient in an AI-driven world. It’s an experiment in understanding the data market and adapting to it at the same time.
+*(keep your current text here — unchanged)*
 
 ---
 
 ## 7-Day Structure
-
-Each day builds toward a more reliable, transparent, and insight-driven data pipeline:
 
 | Day | Theme | Focus |
 |-----|--------|--------|
@@ -35,12 +19,69 @@ Each day builds toward a more reliable, transparent, and insight-driven data pip
 | **Day 2** | Cleaning & Validation | Handle missing data, dtype mismatches, and schema drift |
 | **Day 3** | Transformation Logic | Merge sources, create derived metrics, normalize categories |
 | **Day 4** | Environment Modernization & I/O Resilience | Reproducibility, logging, fault-tolerant I/O |
-| **Day 5** | Metrics & Modeling | Early-career metrics (hiring ratios, opportunity indices) |
-| **Day 6** | Visualization Layer | Tableau dashboards for labor trends and entry-level dynamics |
+| **Day 5** | Aggregate Modeling Outputs | Create Tableau-ready labor-demand index |
+| **Day 6** | Visualization Layer | Tableau dashboards for labor trends & entry-level dynamics |
 | **Day 7** | Reflection & Interpretation | Synthesis: labor data + the AI-augmented analyst |
 
-Extend I/O utilities to handle APIs and JSON sources.
+---
 
-Add Docker support for consistent deployment.
+## Day 5 – Aggregate Modeling Outputs
 
-Explore AI-assisted validation checks (schema inference, anomaly flagging).
+### Goal
+Model how hiring and job-opening dynamics evolved for analytical occupations, using public JOLTS and CPS data. This phase produces a unified, Tableau-ready dataset that tracks **labor demand pressure** over time.
+
+### Data
+- **JOLTS (aggregate):** openings_rate, hires_rate, separations_rate  
+- **CPS (aggregate):** unemployment_rate, participation_rate, employment_pop_ratio
+
+### Key Derived Metrics
+| Metric | Definition |
+|---------|-------------|
+| **Openings-to-Hires** | job openings ÷ hires |
+| **Hires-to-Separations** | hires ÷ separations |
+| **Net Hiring Rate** | hires − separations |
+| **Turnover Volatility** | 12-month rolling SD of separations_rate |
+| **Overall Demand Index** | z-score blend of openings_rate, hires_rate, and employment-to-population ratio |
+
+### Outputs
+| File | Description |
+|------|-------------|
+| `jolts_metrics_aggregate.csv` | Base JOLTS rates + derived ratios |
+| `cps_metrics_aggregate.csv` | Base CPS labor-force metrics |
+| `entry_level_index_aggregate.csv` | Aggregate demand index (entry-level weighting pending) |
+| `dashboard_data.csv` | Unified Tableau-ready dataset |
+
+### Next Steps (Entry-Level Upgrade)
+Once CPS and JOLTS are available **by occupation × age**, rerun `scripts/day5_modeling.py` to generate entry-level weighted indices (`entry_level_index` and `entry_level_access_ratio`).
+
+### Caveats
+- Aggregate indices smooth over sector differences.  
+- Entry-level accessibility not yet modeled — proxy planned via age 20–29 employment share.
+
+### Visualization
+The companion Tableau dashboard visualizes:
+- Aggregate demand index (trend)  
+- Labor-flow ratios (openings↔hires↔separations)  
+- Participation & employment rates (labor supply context)
+
+### Project Structure (as of Day 5)
+job-market-navigator/
+├── data/
+│ └── processed/
+├── outputs/
+│ ├── jolts_metrics_aggregate.csv
+│ ├── cps_metrics_aggregate.csv
+│ ├── entry_level_index_aggregate.csv
+│ └── dashboard_data.csv
+├── scripts/
+│ ├── day5_modeling_aggregate.py
+│ └── day5_modeling.py
+├── README.md
+└── tableau/
+└── Day5_Aggregate_Lens.twbx
+__________
+## Backlog / Roadmap
+- Add occupation × age CPS dataset for entry-level weighting  
+- Integrate Tableau Public dashboards  
+- Automate monthly refresh (GitHub Actions + DuckDB)  
+- Add AI-assisted anomaly detection (schema drift alerts)  
