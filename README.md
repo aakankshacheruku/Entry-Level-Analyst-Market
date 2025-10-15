@@ -1,8 +1,11 @@
 # Entry-Level Analyst Market
+
 **Project Type:** Labor Market Analysis  
 **Duration:** 7-Day Iterative Build  
 **Tools:** Python (Pandas, DuckDB), Tableau, Git, BLS JOLTS/CPS Data  
 **Focus:** Entry-Level Analyst Market Trends & AI-Augmented Career Insights  
+
+---
 
 I’m rebuilding this project to gain a deeper understanding of the entry-level data analyst job market and why it has become so challenging to break into. Using public datasets from the Bureau of Labor Statistics (JOLTS + CPS), I’m mapping the reality behind the “no entry-level jobs” sentiment — how openings, hires, and turnover have shifted across analytical occupations over time.
 
@@ -11,7 +14,21 @@ The project is structured as a 7-day iterative blueprint — each day tackles a 
 ---
 
 ## Why This Project Exists
-*(keep your current text here — unchanged)*
+
+In 2025, the data world is changing faster than the job market can keep up. Entry-level roles that once served as training grounds for new analysts are being reshaped — not only by competition, but by AI automation and shifting expectations of what “analytical work” means.
+
+This project started as a way to measure that shift — combining public labor data (JOLTS + CPS) to ground the “no entry-level jobs” conversation in numbers. It’s also become a way to rethink what it means to enter the data profession at a time when AI tools can already write SQL, summarize dashboards, and automate reporting.
+
+I don’t see that as a threat. I see it as a redefinition of leverage.  
+AI doesn’t erase the analyst’s value — it amplifies judgment, storytelling, and problem framing. Analysts who thrive aren’t the ones who compete with AI for tasks; they’re the ones who use it to scale their own reasoning.
+
+### How entry-level analysts can benefit from AI
+- Offload repetitive tasks (parsing, quick EDA, boilerplate SQL) to focus on interpretation and decisions.  
+- Pair AI with data validation and skepticism — use it to propose ideas, then verify with sources and checks.  
+- Use AI to accelerate iteration cycles (hypotheses → prototypes → feedback) without skipping rigor.  
+- Lean into communication: clear narratives, decision memos, “so what?” — where human context wins.
+
+This project isn’t just tracking labor trends; it’s exploring the skills, habits, and mindsets that make early-career analysts resilient in an AI-driven world. It’s an experiment in understanding the data market and adapting to it at the same time.
 
 ---
 
@@ -71,18 +88,20 @@ The companion Tableau dashboard visualizes:
 ### Project Structure (as of Day 5)
 job-market-navigator/
 ├── data/
-│   └── processed/
+│ └── processed/
 ├── outputs/
-│   ├── jolts_metrics_aggregate.csv
-│   ├── cps_metrics_aggregate.csv
-│   ├── entry_level_index_aggregate.csv
-│   └── dashboard_data.csv
+│ ├── jolts_metrics_aggregate.csv
+│ ├── cps_metrics_aggregate.csv
+│ ├── entry_level_index_aggregate.csv
+│ └── dashboard_data.csv
 ├── scripts/
-│   ├── day5_modeling_aggregate.py
-│   └── day5_modeling.py
+│ ├── day5_modeling_aggregate.py
+│ └── day5_modeling.py
 ├── README.md
 └── tableau/
-    └── Day5_Aggregate_Lens.twbx
+└── Day5_Aggregate_Lens.twbx
+
+---
 
 ## Day 6 – Visualization Layer
 
@@ -170,14 +189,14 @@ Synthesize what the seven-day build reveals about the entry-level analyst market
 
 ---
 
-## 🎯 Closing Note
-This 7-day blueprint started as an experiment in data plumbing — it ended as a reflection on what it means to build truthfully in public.  
-The hardest part of entering data isn’t the code; it’s building clarity when the system you’re analyzing keeps changing.  
-That’s what this project — and this dashboard — are ultimately about.
+> 🧭 *This 7-day blueprint started as an experiment in data plumbing — it ended as a reflection on what it means to build truthfully in public.  
+> The hardest part of entering data isn’t the code; it’s building clarity when the system you’re analyzing keeps changing.  
+> That’s what this project — and this dashboard — are ultimately about.*
 
-__________
+---
+
 ## Backlog / Roadmap
 - Add occupation × age CPS dataset for entry-level weighting  
 - Integrate Tableau Public dashboards  
 - Automate monthly refresh (GitHub Actions + DuckDB)  
-- Add AI-assisted anomaly detection (schema drift alerts)  
+- Add AI-assisted anomaly detection (schema drift alerts)
